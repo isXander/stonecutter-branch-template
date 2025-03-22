@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": ["${mod_author}"],
+  "contact": {
+    "homepage": "https://www.isxander.dev",
+    "sources": "https://github.com/isXander/StonecutterBranchTemplate",
+    "issues": "https://github.com/isXander/StonecutterBranchTemplate/issues"
+  },
+  "license": "${mod_license}",
+  "icon": "${mod_id}.png",
+  "environment": "*",
+  "entrypoints": {
+
+  },
+  "mixins": [
+
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric.loader_version}",
+    "minecraft": "${fabric.minecraft_constraint}"
+  }
+}

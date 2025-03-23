@@ -25,6 +25,8 @@ stonecutter {
             if (forge) forgeVersions.add(version to name)
         }
 
+
+        // Configure targets here. Fabric is applied to all.
         mc("1.21.5")
         mc("1.21.4", neoforge = true)
         mc("1.21.3", neoforge = true)
@@ -32,6 +34,7 @@ stonecutter {
         mc("1.20.6", neoforge = true)
         mc("1.20.4", neoforge = true)
         mc("1.20.1", forge = true)
+
 
         branch("fabric") // empty block copies common
         branch("neoforge") {

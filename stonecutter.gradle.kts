@@ -9,14 +9,18 @@ plugins {
 stonecutter active file("versions/current")
 
 stonecutter registerChiseled tasks.register("chiseledBuild", stonecutter.chiseled) { 
-    group = "project"
+    group = mod.id
     ofTask("build")
+}
+stonecutter registerChiseled tasks.register("chiseledReleaseMod", stonecutter.chiseled) {
+    group = mod.id
+    ofTask("releaseMod")
 }
 
 stonecutter {
     generateRunConfigs = listOf(RunConfigType.SWITCH)
 
     parameters {
-
+        
     }
 }

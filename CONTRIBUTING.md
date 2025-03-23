@@ -2,7 +2,7 @@
 
 ## Tooling
 
-This project uses a wide variety of tools that may be uncommon to see, especially all working together in a single project.
+This project uses a wide variety of tools that may be uncommon to see all working together in a single project.
 
 - [Stonecutter](https://stonecutter.kikugie.dev) - A preprocessor to allow supporting multiple Minecraft versions in a single codebase.
 - [ModDevGradle](https://projects.neoforged.net/neoforged/moddevgradle) - NeoForge's official Gradle Plugin

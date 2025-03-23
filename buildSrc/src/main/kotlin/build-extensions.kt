@@ -2,7 +2,6 @@ import dev.kikugie.stonecutter.build.StonecutterBuild
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.*
-import org.gradle.language.jvm.tasks.ProcessResources
 
 val Project.mod: ModData get() = ModData(this)
 fun Project.prop(key: String): String? = findProperty(key)?.toString()
@@ -22,6 +21,16 @@ val Project.commonProject get() = common.project
 val Project.commonMod get() = commonProject.mod
 
 val Project.loader: String? get() = prop("loader")
+
+val Project.extraProcessResourceKeys: MutableMap<String, String?>
+    get() {
+        if (extra.has("extraProcessResourceKeys")) {
+            return extra["extraProcessResourceKeys"] as MutableMap<String, String?>
+        } else {
+            extra["extraProcessResourceKeys"] = mutableMapOf<String, String?>()
+            return extraProcessResourceKeys
+        }
+    }
 
 @JvmInline
 value class ModData(private val project: Project) {

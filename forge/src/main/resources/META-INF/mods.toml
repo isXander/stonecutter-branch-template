@@ -1,5 +1,5 @@
 modLoader = "javafml" #mandatory
-loaderVersion = "${neoforge_loader_constraint}" #mandatory
+loaderVersion = "${forge_loader_constraint}" #mandatory
 license = "${mod_license}" # Review your options at https://choosealicense.com/.
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 [[mods]] #mandatory
@@ -12,17 +12,15 @@ logoFile="${mod_id}.png" #optional
 authors = "${mod_author}" #optional
 description = '''${mod_description}''' #mandatory (Supports multiline text)
 
-${mixins}
-
 [[dependencies.${mod_id}]] #optional
-modId = "neoforge" #mandatory
-type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
-versionRange = "[${neoforge_version},)" #mandatory
+modId = "forge" #mandatory
+mandatory = true #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
+versionRange = "[${forge_version},)" #mandatory
 ordering = "NONE" # The order that this dependency should load in relation to your mod, required to be either 'BEFORE' or 'AFTER' if the dependency is not mandatory
 side = "BOTH" # Side this dependency is applied on - 'BOTH', 'CLIENT' or 'SERVER'
 [[dependencies.${mod_id}]]
 modId = "minecraft"
-type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
+mandatory = true #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
 versionRange = "${forgelike_minecraft_constraint}"
 ordering = "NONE"
 side = "BOTH"

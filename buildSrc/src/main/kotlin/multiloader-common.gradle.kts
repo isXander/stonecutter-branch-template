@@ -3,9 +3,9 @@ plugins {
     `maven-publish`
 }
 
-version = "${commonMod.version}+${loader}-${stonecutterBuild.current.version}"
+version = "${commonMod.version}+${stonecutterBuild.current.version}-${loader}"
 base {
-    archivesName = "${commonMod.id}-${loader}-${commonMod.mc}"
+    archivesName = commonMod.id
 }
 
 java {
@@ -16,6 +16,12 @@ java {
 
 repositories {
     mavenCentral()
+    exclusiveContent {
+        forRepository {
+            maven("https://repo.spongepowered.org/repository/maven-public") { name = "Sponge" }
+        }
+        filter { includeGroupAndSubgroups("org.spongepowered") }
+    }
     exclusiveContent {
         forRepositories(
             maven("https://maven.parchmentmc.org") { name = "ParchmentMC" },
@@ -59,7 +65,7 @@ tasks {
     }
 
     processResources {
-        val expandProps = mapOf(
+        val expandProps = (mapOf(
             "mod_version" to commonMod.version,
             "mod_group" to commonMod.group,
             "mod_author" to commonMod.author,
@@ -68,14 +74,19 @@ tasks {
             "mod_id" to commonMod.id,
             "mod_description" to commonMod.description,
             "mod_license" to commonMod.license,
-            "fabric.loader_version" to commonMod.depOrNull("fabric-loader"),
-            "fabric.minecraft_constraint" to commonMod.propOrNull("meta.fabric.minecraft-constraint"),
-            "neoforge.version" to commonMod.depOrNull("neoforge"),
-            "neoforge.loader_constraint" to commonMod.propOrNull("meta.neoforge.loader-constraint"),
-            "neoforge.minecraft_constraint" to commonMod.propOrNull("meta.neoforge.minecraft-constraint"),
-        )
+            "fabric_loader_version" to commonMod.depOrNull("fabric-loader"),
+            "fabric_minecraft_constraint" to commonMod.propOrNull("meta.fabric.minecraft-constraint"),
+            "neoforge_version" to commonMod.depOrNull("neoforge"),
+            "neoforge_loader_constraint" to commonMod.propOrNull("meta.neoforge.loader-constraint"),
+            "forge_version" to commonMod.depOrNull("forge"),
+            "forge_loader_constraint" to commonMod.propOrNull("meta.forge.loader-constraint"),
+            "forgelike_minecraft_constraint" to commonMod.propOrNull("meta.forgelike.minecraft-constraint"),
+            "pack_format" to commonMod.propOrNull("meta.pack-format"),
+        ) + extraProcessResourceKeys)
+            .filterValues { it?.isNotEmpty() == true }
+            .mapValues { (_, v) -> v!! }
 
-        val jsonExpandProps = expandProps.mapValues { (_, v) -> v?.replace("\n", "\\\\n") }
+        val jsonExpandProps = expandProps.mapValues { (_, v) -> v.replace("\n", "\\\\n") }
 
         filesMatching(listOf("META-INF/mods.toml", "META-INF/neoforge.mods.toml")) {
             expand(expandProps)
@@ -95,4 +106,9 @@ publishing {
             from(components["java"])
         }
     }
+}
+
+val releaseMod by tasks.registering {
+    group = commonMod.id
+    dependsOn("publish")
 }

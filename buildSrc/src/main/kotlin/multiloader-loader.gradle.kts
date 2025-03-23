@@ -79,3 +79,7 @@ publishMods {
         minecraftVersions.addAll(versionList("versions.modrinth"))
     }
 }
+
+val releaseMod by tasks.getting {
+    dependsOn("publishMods")
+}
